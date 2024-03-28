@@ -8,7 +8,7 @@ in
   services.tailscale = {
     enable = true;
     authKeyFile = "/tsauthkey";
-    extraUpFlags = [ "--ssh" "--hostname" "flakery-tutorial" ];
+    extraUpFlags = [ "--ssh" ];
   };
 
 }
