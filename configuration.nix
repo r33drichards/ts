@@ -1,14 +1,16 @@
 { config, pkgs, ... }:
-let 
-  flakeryDomain = builtins.readFile /metadata/flakery-domain;
-in
+''''
 {
   system.stateVersion = "23.05";
 
-  services.tailscale = {
-    enable = true;
-    authKeyFile = "/tsauthkey";
-    extraUpFlags = [ "--ssh" ];
-  };
-
+    services.static-web-server = {
+      enable = true;
+      listen = "[::]:8888";
+      root = toString (pkgs.writeTextDir "nixos-test.html" ''
+        <h1>Hello NixOS!</h1>
+      '');
+      configuration = {
+        general = { directory-listing = true; };
+      };
+    };
 }
